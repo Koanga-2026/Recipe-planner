@@ -41,6 +41,22 @@ export async function addRecipe(data: RecipeData) {
   return recipe as Recipes
 }
 
+export async function updateRecipe(
+  id: number,
+  data: Partial<RecipeData>,
+): Promise<Recipes | undefined> {
+  const [recipe] = await db('recipes')
+    .where({ id })
+    .update({
+      name: data.name,
+      description: data.description,
+      instruction: data.instruction,
+    })
+    .returning(columns)
+
+  return recipe as Recipes | undefined
+}
+
 export async function getWeeks() {
   const result = await db('weekly_plan').select(...otherColumns)
   console.log(result)
