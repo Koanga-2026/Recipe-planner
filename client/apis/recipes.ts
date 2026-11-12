@@ -23,3 +23,11 @@ export async function fetchWeek(id: number) {
   const res = await request.get(`${otherRootURL}/${id}`)
   return res.body as WeeklyPlan
 }
+
+export async function deleteRecipe(id: number) {
+  await request.delete(`${rootURL}/${id}`)
+}
+
+export async function deleteWeek(id: number) {
+  await request.delete(`${otherRootURL}/${id}`)
+}
