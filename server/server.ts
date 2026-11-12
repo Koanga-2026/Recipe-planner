@@ -1,9 +1,12 @@
 import * as Path from 'node:path'
-
+import recipesRoutes from './routes/routesRecipes.ts'
+import weeklyPlanRoutes from './routes/routesWeeks.ts'
 import express from 'express'
 
 const server = express()
 server.use(express.json())
+server.use('/api/v1/recipes', recipesRoutes)
+server.use('/api/v1/week', weeklyPlanRoutes)
 
 // ADD YOUR API ROUTES HERE
 
