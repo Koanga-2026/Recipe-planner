@@ -1,6 +1,7 @@
-import { fetchRecipe, fetchRecipes } from '../apis/recipes.ts'
+import { fetchRecipes } from '../apis/recipes.ts'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
+import AddRecipe from './AddRecipe'
 
 function Home() {
   const {
@@ -20,6 +21,7 @@ function Home() {
 
   return (
     <>
+      <AddRecipe />
       <ul>
         {recipes.map((recipe) => {
           return (

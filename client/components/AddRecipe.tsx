@@ -16,7 +16,7 @@ function AddRecipe() {
   const addMutation = useMutation({
     mutationFn: (recipe: RecipeData) => addRecipe(recipe),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['recipes'] })
+      queryClient.invalidateQueries({ queryKey: ['Recipes'] })
       setItem(emptyRecipe)
     },
   })
