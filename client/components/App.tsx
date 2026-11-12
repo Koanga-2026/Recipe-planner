@@ -1,10 +1,14 @@
+import AddRecipe from './AddRecipe'
+
 function App() {
   return (
     <>
       <header className="header">
-        <h1>My Collection</h1>
+        <h1>Recipe Planner</h1>
       </header>
-      <section className="main">{/* add your code here */}</section>
+      <section className="main">
+        <AddRecipe />
+      </section>
     </>
   )
 }
