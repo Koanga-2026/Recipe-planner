@@ -1,10 +1,12 @@
 import { fetchRecipes } from '../apis/recipes.ts'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
+import { useAuth0 } from '@auth0/auth0-react'
 import DeleteButton from './DeleteButton.tsx'
 import AddRecipe from './AddRecipe'
 
 function Home() {
+  const { isAuthenticated } = useAuth0()
   const {
     data: recipes,
     isPending,
@@ -19,10 +21,9 @@ function Home() {
   if (isError) {
     return <p className="page-state">{error.message}</p>
   }
-
-  return (
+return (
     <div className="home-layout">
-      <AddRecipe />
+      {isAuthenticated && <AddRecipe />}
       <section className="recipe-panel" id="menu">
         <p className="section-eyebrow">From your kitchen</p>
         <h2>Today&apos;s Recipe Menu</h2>
@@ -31,7 +32,7 @@ function Home() {
             return (
               <li key={recipe.id}>
                 <Link to={'/recipe/' + recipe.id}>{recipe.name}</Link>
-                <DeleteButton id={recipe.id} />
+                {isAuthenticated && <DeleteButton id={recipe.id} />}
               </li>
             )
           })}

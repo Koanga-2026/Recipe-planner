@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useAuth0 } from '@auth0/auth0-react'
 import { updateRecipe } from '../apis/recipes'
 import { Recipes } from '../../models/recipes'
 import { RecipeData } from '../../models/recipe'
@@ -16,13 +17,17 @@ function EditRecipe({ recipe, onDone }: Props) {
     instruction: recipe.instruction ?? '',
   })
   const queryClient = useQueryClient()
+  const { getAccessTokenSilently } = useAuth0()
 
   const updateMutation = useMutation({
-    mutationFn: (updatedRecipe: RecipeData) =>
-      updateRecipe(recipe.id, updatedRecipe),
+    mutationFn: async (updatedData: Partial<RecipeData>) => {
+      const token = await getAccessTokenSilently()
+      if (!token) throw new Error('No access token found')
+      return updateRecipe(recipe.id, updatedData, token)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['Recipes'] })
-      queryClient.invalidateQueries({ queryKey: ['recipe'] })
+      queryClient.invalidateQueries({ queryKey: ['Recipe', recipe.id] })
       onDone()
     },
   })

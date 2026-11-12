@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteWeek, deleteRecipe } from '../apis/recipes'
+import { useAuth0 } from '@auth0/auth0-react'
+import { deleteRecipe } from '../apis/recipes'
 
 interface Props {
   id: number
@@ -7,9 +8,14 @@ interface Props {
 
 function DeleteButton({ id }: Props) {
   const queryClient = useQueryClient()
+  const { getAccessTokenSilently } = useAuth0()
 
   const deleteMutation = useMutation({
-    mutationFn: () => deleteRecipe(id),
+    mutationFn: async () => {
+      const token = await getAccessTokenSilently()
+      if (!token) throw new Error('No access token found')
+      return deleteRecipe(id, token)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['Recipes'] })
     },
