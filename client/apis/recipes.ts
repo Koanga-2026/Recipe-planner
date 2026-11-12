@@ -1,5 +1,6 @@
 import request from 'superagent'
 import { Recipes, WeeklyPlan } from '../../models/recipes.ts'
+import { RecipeData } from '../../models/recipe'
 
 const rootURL = new URL('/api/v1/recipes', document.baseURI)
 const otherRootURL = new URL('/api/v1/week', document.baseURI)
@@ -12,6 +13,11 @@ export async function fetchRecipes() {
 export async function fetchRecipe(id: number) {
   const res = await request.get(`${rootURL}/${id}`)
   return res.body as Recipes
+}
+
+export async function addRecipe(newRecipe: RecipeData): Promise<Recipes> {
+  const res = await request.post(`${rootURL}`).send(newRecipe)
+  return res.body
 }
 
 export async function fetchWeeks() {
