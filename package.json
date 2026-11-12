@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.30.0",
     "@devacademy/eslint-config": "^1.10.2",
     "express": "^4.22.1",
     "knex": "^2.5.1",
