@@ -1,5 +1,6 @@
 import db from './connection'
 import { Recipes, WeeklyPlan } from '../../models/recipes'
+import { RecipeData } from '../../models/recipe'
 
 const columns = [
   'id',
@@ -19,7 +20,7 @@ export async function getRecipes() {
   return result as Recipes[]
 }
 
-export async function getRecipeById(id) {
+export async function getRecipeById(id: number) {
   const result = await db('recipes')
     .select(...columns)
     .where({ id })
@@ -28,13 +29,25 @@ export async function getRecipeById(id) {
   return result as Recipes
 }
 
+export async function addRecipe(data: RecipeData) {
+  const [recipe] = await db('recipes')
+    .insert({
+      name: data.name,
+      description: data.description,
+      instruction: data.instruction,
+    })
+    .returning(columns)
+
+  return recipe as Recipes
+}
+
 export async function getWeeks() {
   const result = await db('weekly_plan').select(...otherColumns)
   console.log(result)
   return result as WeeklyPlan[]
 }
 
-export async function getWeekById(id) {
+export async function getWeekById(id: number) {
   const result = await db('weekly_plan')
     .select(...otherColumns)
     .where({ id })
