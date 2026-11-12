@@ -41,8 +41,9 @@ function AddRecipe() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add a recipe:</h2>
+    <form className="recipe-form" id="add-recipe" onSubmit={handleSubmit}>
+      <p className="section-eyebrow">Write it down</p>
+      <h2>Add to the Menu</h2>
       <div>
         <label htmlFor="name">Name: </label>
         <input
