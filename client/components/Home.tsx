@@ -1,6 +1,7 @@
 import { fetchRecipes } from '../apis/recipes.ts'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
+import DeleteButton from './DeleteButton.tsx'
 import AddRecipe from './AddRecipe'
 
 function Home() {
@@ -27,6 +28,7 @@ function Home() {
           return (
             <li key={recipe.id}>
               <Link to={'/recipe/' + recipe.id}>{recipe.name}</Link>
+              <DeleteButton id={recipe.id} />
             </li>
           )
         })}

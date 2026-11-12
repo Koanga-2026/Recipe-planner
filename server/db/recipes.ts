@@ -55,3 +55,11 @@ export async function getWeekById(id: number) {
   console.log(result)
   return result as WeeklyPlan
 }
+
+export async function deleteRecipe(id: number) {
+  return await db('recipes').where({ id }).delete()
+}
+
+export async function deleteWeek(id: number) {
+  return await db('weekly_plan').where({ id }).delete()
+}

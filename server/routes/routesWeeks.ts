@@ -36,4 +36,22 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+//delete'/api/v1/week/id'
+router.delete('/:id', async (req, res) => {
+  try {
+    const count = await db.deleteWeek(Number(req.params.id))
+    if (!count) {
+      res.sendStatus(404)
+    }
+    res.json(count)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    } else {
+      console.error(error)
+      res.status(500).send('Something went wrong')
+    }
+  }
+})
+
 export default router
