@@ -39,15 +39,13 @@ function RecipesDetails() {
       <h2>{`Day: ${recipe.plannedDay}`}</h2>
       <h2>{`Meal: ${recipe.mealType}`}</h2>
 
-  {isAuthenticated &&
+      {isAuthenticated &&
         (editing ? (
           <EditRecipe recipe={recipe} onDone={() => setEditing(false)} />
         ) : (
           <button onClick={() => setEditing(true)}>Edit recipe</button>
         ))}
     </article>
-  )
-}
   )
 }
 
