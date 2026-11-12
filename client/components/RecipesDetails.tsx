@@ -19,14 +19,18 @@ function RecipesDetails() {
   })
   console.log(recipe)
   if (isPending) {
-    return <p> Loading</p>
+    return <p className="page-state">Loading recipe…</p>
   }
 
   if (isError) {
-    return <p>Error the recipe book was not found! {error.message}</p>
+    return (
+      <p className="page-state">
+        The recipe could not be loaded. {error.message}
+      </p>
+    )
   }
   return (
-    <>
+    <article className="recipe-detail">
       <h1>{recipe.name}</h1>
       <h2>{`Description: ${recipe.description}`}</h2>
       <h2>{`Method: ${recipe.instruction}`}</h2>
@@ -38,7 +42,7 @@ function RecipesDetails() {
       ) : (
         <button onClick={() => setEditing(true)}>Edit recipe</button>
       )}
-    </>
+    </article>
   )
 }
 

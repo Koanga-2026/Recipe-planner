@@ -43,7 +43,7 @@ function EditRecipe({ recipe, onDone }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="recipe-form" onSubmit={handleSubmit}>
       <h3>Edit recipe:</h3>
       <div>
         <label htmlFor={`name-${recipe.id}`}>Name: </label>
