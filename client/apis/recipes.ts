@@ -15,8 +15,14 @@ export async function fetchRecipe(id: number) {
   return res.body as Recipes
 }
 
-export async function addRecipe(newRecipe: RecipeData): Promise<Recipes> {
-  const res = await request.post(`${rootURL}`).send(newRecipe)
+export async function addRecipe(
+  newRecipe: RecipeData,
+  token: string,
+): Promise<Recipes> {
+  const res = await request
+    .post(`${rootURL}`)
+    .set('Authorization', `Bearer ${token}`) // <-- Attached token here
+    .send(newRecipe)
   return res.body
 }
 
@@ -30,8 +36,10 @@ export async function fetchWeek(id: number) {
   return res.body as WeeklyPlan
 }
 
-export async function deleteRecipe(id: number) {
-  await request.delete(`${rootURL}/${id}`)
+export async function deleteRecipe(id: number, token: string) {
+  await request
+    .delete(`${rootURL}/${id}`)
+    .set('Authorization', `Bearer ${token}`)
 }
 
 export async function deleteWeek(id: number) {
@@ -41,7 +49,11 @@ export async function deleteWeek(id: number) {
 export async function updateRecipe(
   id: number,
   data: Partial<RecipeData>,
+  token: string,
 ): Promise<Recipes> {
-  const res = await request.patch(`${rootURL}/${id}`).send(data)
+  const res = await request
+    .patch(`${rootURL}/${id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(data)
   return res.body
 }
