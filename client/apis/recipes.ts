@@ -37,3 +37,11 @@ export async function deleteRecipe(id: number) {
 export async function deleteWeek(id: number) {
   await request.delete(`${otherRootURL}/${id}`)
 }
+
+export async function updateRecipe(
+  id: number,
+  data: Partial<RecipeData>,
+): Promise<Recipes> {
+  const res = await request.patch(`${rootURL}/${id}`).send(data)
+  return res.body
+}
