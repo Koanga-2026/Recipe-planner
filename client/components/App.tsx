@@ -1,13 +1,11 @@
-import AddRecipe from './AddRecipe'
+import { Outlet } from 'react-router'
 
 function App() {
   return (
     <>
-      <header className="header">
-        <h1>Recipe Planner</h1>
-      </header>
+      <header className="header"></header>
       <section className="main">
-        <AddRecipe />
+        <Outlet />
       </section>
     </>
   )

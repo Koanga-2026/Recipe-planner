@@ -1,9 +1,31 @@
 import request from 'superagent'
-import { Recipe, RecipeData } from '../../models/recipe'
+import { Recipes, WeeklyPlan } from '../../models/recipes.ts'
+import { RecipeData } from '../../models/recipe'
 
-const rootUrl = '/api/v1'
+const rootURL = new URL('/api/v1/recipes', document.baseURI)
+const otherRootURL = new URL('/api/v1/week', document.baseURI)
 
-export async function addRecipe(newRecipe: RecipeData): Promise<Recipe> {
-  const res = await request.post(`${rootUrl}/recipes`).send(newRecipe)
+export async function fetchRecipes() {
+  const res = await request.get(`${rootURL}`)
+  return res.body as Recipes[]
+}
+
+export async function fetchRecipe(id: number) {
+  const res = await request.get(`${rootURL}/${id}`)
+  return res.body as Recipes
+}
+
+export async function addRecipe(newRecipe: RecipeData): Promise<Recipes> {
+  const res = await request.post(`${rootURL}`).send(newRecipe)
   return res.body
+}
+
+export async function fetchWeeks() {
+  const res = await request.get(`${otherRootURL}`)
+  return res.body as WeeklyPlan[]
+}
+
+export async function fetchWeek(id: number) {
+  const res = await request.get(`${otherRootURL}/${id}`)
+  return res.body as WeeklyPlan
 }
