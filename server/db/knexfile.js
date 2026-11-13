@@ -34,13 +34,16 @@ export default {
   },
 
   production: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+    client: 'pg',
     connection: {
-      filename: '/app/storage/prod.sqlite3',
+      host: process.env.DB_HOST,
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
     },
     pool: {
-      afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb),
+      min: 2,
+      max: 10,
     },
   },
 }

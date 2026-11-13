@@ -11,6 +11,8 @@
     "dev:client": "vite",
     "dev:server": "tsx watch server/index.ts",
     "build": "run-s build:client build:server",
+    "render:build": "npm install --include=dev && npm run build && npm run knex migrate:latest",
+    "render:start": "node dist/server.js",
     "build:client": "vite build",
     "build:server": "esbuild --packages=external --platform=node --format=esm --outfile=dist/server.js --bundle server/index.ts",
     "test": "vitest",
@@ -35,6 +37,7 @@
     "express": "^4.22.1",
     "express-oauth2-jwt-bearer": "^1.11.0",
     "knex": "^2.5.1",
+    "pg": "^8.23.1",
     "sqlite3": "^5.1.7",
     "superagent": "^10.2.2"
   },
