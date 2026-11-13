@@ -22,13 +22,24 @@ function DeleteButton({ id }: Props) {
   })
 
   const handleDelete = () => {
-    console.log('deleting', id)
     deleteMutation.mutate()
   }
 
   return (
     <>
-      <button onClick={handleDelete}>X</button>
+      <button
+        type="button"
+        onClick={handleDelete}
+        disabled={deleteMutation.isPending}
+        aria-label={`Delete recipe ${id}`}
+      >
+        {deleteMutation.isPending ? 'Deleting…' : 'Delete'}
+      </button>
+      {deleteMutation.error && (
+        <p role="alert">
+          Unable to delete recipe: {deleteMutation.error.message}
+        </p>
+      )}
     </>
   )
 }

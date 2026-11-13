@@ -9,6 +9,6 @@ export interface Recipes {
   description: string
   instruction: string
   weeklyPlanId: number
-  plannedDay: string
-  mealType: string
+  plannedDay: string | null
+  mealType: string | null
 }

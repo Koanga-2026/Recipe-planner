@@ -32,7 +32,10 @@ function Home() {
     ...new Set(
       recipes
         .map((recipe) => recipe.mealType)
-        .filter((mealType) => mealType.trim().length > 0),
+        .filter(
+          (mealType): mealType is string =>
+            typeof mealType === 'string' && mealType.trim().length > 0,
+        ),
     ),
   ].sort((first, second) => first.localeCompare(second))
   const filteredRecipes = recipes.filter(
@@ -107,10 +110,10 @@ function Home() {
                   <span className="recipe-entry-name">{recipe.name}</span>
                   <span className="recipe-entry-meta">
                     <span className="recipe-tag recipe-tag-day">
-                      Day · {recipe.plannedDay}
+                      Day · {recipe.plannedDay ?? 'Not set'}
                     </span>
                     <span className="recipe-tag recipe-tag-meal">
-                      Meal · {recipe.mealType}
+                      Meal · {recipe.mealType ?? 'Not set'}
                     </span>
                   </span>
                 </Link>
